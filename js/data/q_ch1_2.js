@@ -215,9 +215,9 @@ QBANK.add([
   expl:'Equity = 600 − 320 = $280K. RE = Equity − Common Stock = 280 − 200 = $80K. RE = NI − Div ⇒ 80 = NI − 40 ⇒ NI = $120,000.'
 },
 { id:'ch1_2-023', chap:'ch1_2', type:'numeric', diff:'med', src:'midterm', dp:0,
-  stem:'Same Atlantic data. What were total expenses for the year (in $)?',
+  stem:'Atlantic Corporation reported: Total assets $600,000; Total liabilities $320,000; Common stock $200,000; Dividends declared $40,000; Sales revenue $800,000. What were total expenses for the year (in $)?',
   ans:680000,
-  expl:'NI = Sales − Expenses ⇒ 120,000 = 800,000 − Expenses ⇒ Expenses = $680,000.'
+  expl:'Step 1: Equity = 600 − 320 = $280K. Step 2: RE = Equity − Common Stock = 280 − 200 = $80K. Step 3: RE = NI − Div ⇒ NI = 80 + 40 = $120K. Step 4: NI = Sales − Expenses ⇒ Expenses = 800 − 120 = $680,000.'
 },
 { id:'ch1_2-024', chap:'ch1_2', type:'numeric', diff:'med', src:'midterm', dp:0,
   stem:'Lena Co. 2016: revenues $99,000; expenses $47,800; dividends $9,500; total assets at 12/31 $177,000; total liabilities $89,000; common stock $28,000. What is the year-end Retained Earnings balance (in $)?',

@@ -56,19 +56,19 @@ QBANK.add([
   expl:'PV = 10,000 × 3.9927 = €39,927.'
 },
 { id:'ch8-007', chap:'ch8', type:'numeric', diff:'med', src:'authored', dp:0,
-  stem:'Same lease (initial liability €39,927, 8% rate). Year 1 interest expense (in €)?',
+  stem:'A 5-year lease has annual payments of €10,000 in arrears. IBR = 8%. PV factor (annuity, 5 years, 8%) = 3.9927. So the initial Lease Liability is €39,927. What is the Year 1 interest expense (in €)?',
   ans:3194,
-  expl:'Year 1 int = 39,927 × 8% ≈ €3,194.'
+  expl:'Year 1 interest = opening liability × IBR = 39,927 × 8% ≈ €3,194.'
 },
 { id:'ch8-008', chap:'ch8', type:'numeric', diff:'med', src:'authored', dp:0,
-  stem:'Same lease. Year 1 ROU asset depreciation (straight-line, in €)?',
+  stem:'A 5-year lease has annual payments of €10,000 in arrears. IBR = 8%. PV factor (annuity, 5 years, 8%) = 3.9927. So the initial ROU asset = initial Lease Liability = €39,927. What is the Year 1 ROU asset depreciation expense under straight-line (in €)?',
   ans:7985,
-  expl:'Dep = 39,927 / 5 ≈ €7,985.'
+  expl:'Depreciation = ROU / lease term = 39,927 / 5 ≈ €7,985 per year.'
 },
 { id:'ch8-009', chap:'ch8', type:'numeric', diff:'hard', src:'authored', dp:0,
-  stem:'Same lease. Lease liability balance at end of Year 1 (in €)?',
+  stem:'A 5-year lease has annual payments of €10,000 in arrears. IBR = 8%. PV factor (annuity, 5 years, 8%) = 3.9927. Initial lease liability = €39,927; Year 1 interest accrual ≈ €3,194. What is the lease liability balance at the end of Year 1, after the year-end payment (in €)?',
   ans:33121,
-  expl:'End = Beg + Int − Pmt = 39,927 + 3,194 − 10,000 = €33,121.'
+  expl:'Lease liability roll-forward: End = Beg + Interest − Payment = 39,927 + 3,194 − 10,000 = €33,121.'
 },
 { id:'ch8-010', chap:'ch8', type:'mcq', diff:'med', src:'authored',
   stem:'Under IFRS 16, the cash payment of €10,000 splits as follows on the cash flow statement:',

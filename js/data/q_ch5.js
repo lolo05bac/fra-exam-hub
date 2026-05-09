@@ -139,17 +139,15 @@ QBANK.add([
   expl:'LIFO uses newest first: 230×610 + 360×560 + 260×510 + 50×460 = 140,300 + 201,600 + 132,600 + 23,000 = $497,500.'
 },
 { id:'ch5-016', chap:'ch5', type:'numeric', diff:'med', src:'authored', dp:0,
-  stem:'Same Square9 data. Compute COGS under FIFO (in $).',
-  ans:469000,
-  expl:'FIFO uses oldest first: 160×460 + 260×510 + 360×560 + 120×610 = 73,600 + 132,600 + 201,600 + 73,200 = $481,000. Wait — let me recompute. 160+260+360 = 780 sold; need 900 so 120 from the 230@610 layer. 73,600 + 132,600 + 201,600 + 73,200 = $481,000.',
-  ans:481000
+  stem:'Square9: Beg 160@$460; Purchases 260@$510, 360@$560, 230@$610. Sold 900 units during the year. Compute COGS under FIFO (in $).',
+  ans:481000,
+  expl:'FIFO consumes oldest layers first. 900 units sold = 160 (Beg) + 260 + 360 + 120 (from the 230@610 layer). COGS = 160×460 + 260×510 + 360×560 + 120×610 = 73,600 + 132,600 + 201,600 + 73,200 = $481,000.'
 },
-{ id:'ch5-017', chap:'ch5', type:'numeric', diff:'hard', src:'authored', dp:2,
-  stem:'Same Square9 data. Compute COGS under WEIGHTED-AVERAGE (round avg cost to 2dp; in $; round final answer to nearest dollar then enter).',
-  ans:494673,
-  expl:'Total cost = 160×460 + 260×510 + 360×560 + 230×610 = 73,600 + 132,600 + 201,600 + 140,300 = 548,100. Total units = 1,010. Avg = 548,100 / 1,010 ≈ $542.6733. COGS = 900 × 542.6733 ≈ $488,406.',
+{ id:'ch5-017', chap:'ch5', type:'numeric', diff:'hard', src:'authored', dp:0,
+  stem:'Square9: Beg 160@$460; Purchases 260@$510, 360@$560, 230@$610. Sold 900 units during the year. Compute COGS under WEIGHTED-AVERAGE (round to nearest dollar, in $).',
   ans:488406,
-  alt:'Ending inv = 110 × 542.6733 ≈ $59,694. Sums to $548,100 (rounding). NI ranks: FIFO highest, weighted-avg middle, LIFO lowest in rising prices.'
+  expl:'Total cost of goods available = 160×460 + 260×510 + 360×560 + 230×610 = 548,100. Total units = 1,010. Avg cost per unit = 548,100 / 1,010 ≈ $542.6733. COGS = 900 × 542.6733 ≈ $488,406.',
+  alt:'Check: ending inv = 110 × 542.6733 ≈ $59,694; sum of COGS + ending = $548,100 ✓. Note: NI ranking in rising prices is FIFO > WA > LIFO.'
 },
 { id:'ch5-018', chap:'ch5', type:'numeric', diff:'med', src:'final-2024', dp:2,
   stem:'Inventory turnover. Beg = $118,000; End = $110,000; Sales = $999,000; Gross profit = $303,000. Compute inventory turnover (rounded to 2dp).',

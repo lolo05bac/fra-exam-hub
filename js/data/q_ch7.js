@@ -17,7 +17,7 @@ QBANK.add([
   pitfall:'Interest expense follows the month count, not the cash payment dates.'
 },
 { id:'ch7-003', chap:'ch7', type:'numeric', diff:'med', src:'mcq-bank', dp:0,
-  stem:'Same Apr 1, 2015 borrowing of $12,000 at 10%. By fiscal year-end Dec 31, the company already paid the Sept 30 coupon. What is INTEREST PAYABLE at Dec 31 (in $)?',
+  stem:'On April 1, 2015 a firm borrowed $12,000 at 10% annual interest, payable semi-annually on Sept 30 and Mar 31. By fiscal year-end Dec 31, the company has paid the Sept 30 coupon. What is INTEREST PAYABLE at Dec 31 (in $)?',
   ans:300,
   expl:'9 months expense = $900. Cash paid Sept 30 covered Apr-Sept (6 months) = $600. Remaining accrued (Oct-Dec) = $300.'
 },
@@ -87,9 +87,9 @@ QBANK.add([
   expl:'¼ of face = $104,750 (= carrying since at par). Cash $99,800. G/L = 104,750 − 99,800 = +$4,950 GAIN.'
 },
 { id:'ch7-011', chap:'ch7', type:'numeric', diff:'med', src:'final-2025', dp:0,
-  stem:'Same Bunny scenario as Q010. Cash outflow shown as financing activity (in $)?',
+  stem:'Bunny retired ¼ of its $419,000 face-value bonds (originally issued at par) for $99,800 cash. What cash outflow appears as a financing activity on the statement of cash flows (in $)?',
   ans:99800,
-  expl:'CFF outflow = full cash paid = $99,800.'
+  expl:'Bond retirement = financing activity. CFF outflow = full cash paid for the repurchase = $99,800. (The $4,950 gain is reported on the income statement and would be subtracted from NI when reconciling indirect-method CFO.)'
 },
 { id:'ch7-012', chap:'ch7', type:'mcq', diff:'easy', src:'authored',
   stem:'A bond sells at a premium when:',

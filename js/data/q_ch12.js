@@ -181,14 +181,14 @@ QBANK.add([
   expl:'ROE = NI/Avg Equity = 400,000/1,600,000 = 25%.'
 },
 { id:'ch12-025', chap:'ch12', type:'numeric', diff:'med', src:'authored', dp:2,
-  stem:'Same data. Compute ROA (2dp, as percentage).',
+  stem:'A company reports: Sales $5,000,000; Net income $400,000; Average total assets $4,000,000; Average equity $1,600,000. Compute Return on Assets (ROA) as a percentage (2dp).',
   ans:10.00,
-  expl:'ROA = NI/Avg Assets = 400,000/4,000,000 = 10%.'
+  expl:'ROA = NI / Average Total Assets = 400,000 / 4,000,000 = 10.00%.'
 },
 { id:'ch12-026', chap:'ch12', type:'numeric', diff:'hard', src:'authored', dp:2,
-  stem:'Same data + total liabilities (avg) $2.4M. Use DuPont: ROE = NPM × Asset Turnover × Equity Multiplier. Verify the equity multiplier (2dp).',
+  stem:'A company reports: Sales $5,000,000; Net income $400,000; Average total assets $4,000,000; Average equity $1,600,000; Average total liabilities $2,400,000. Using the DuPont decomposition ROE = NPM × Asset Turnover × Equity Multiplier, what is the equity multiplier (2dp)?',
   ans:2.50,
-  expl:'EM = Avg Assets / Avg Equity = 4,000,000 / 1,600,000 = 2.50. Check: ROE = (400/5,000) × (5,000/4,000) × 2.5 = 0.08 × 1.25 × 2.5 = 0.25 = 25%. ✓'
+  expl:'Equity Multiplier = Avg Assets / Avg Equity = 4,000,000 / 1,600,000 = 2.50. Check the full DuPont: NPM = 400/5,000 = 8%; Asset Turnover = 5,000/4,000 = 1.25; ROE = 0.08 × 1.25 × 2.50 = 25.00% (matches NI/Equity = 400/1,600 = 25%). ✓'
 },
 { id:'ch12-027', chap:'ch12', type:'mcq', diff:'med', src:'authored',
   stem:'A high D/E ratio implies:',

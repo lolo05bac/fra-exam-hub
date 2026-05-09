@@ -36,9 +36,9 @@ QBANK.add([
   expl:'Income = 30% × 100,000 = +30,000. Dividends received = 30% × 40,000 = −12,000. End = 200,000 + 30,000 − 12,000 = $218,000.'
 },
 { id:'ch10-005', chap:'ch10', type:'numeric', diff:'med', src:'authored', dp:0,
-  stem:'Same scenario as Q004. Income recognised on investor\'s I/S (in $)?',
+  stem:'Investor owns 30% of Investee (significant influence; equity method applies). During the year Investee earned net income of $100,000 and paid $40,000 of dividends. How much investment income should the investor recognise on its income statement (in $)?',
   ans:30000,
-  expl:'30% × $100,000 = $30,000.'
+  expl:'Equity-method income = ownership % × investee NI = 30% × $100,000 = $30,000. Note: dividends received from the investee are NOT income — they reduce the investment-account carrying value.'
 },
 { id:'ch10-006', chap:'ch10', type:'mcq', diff:'easy', src:'authored',
   stem:'TRADING securities are reported at:',

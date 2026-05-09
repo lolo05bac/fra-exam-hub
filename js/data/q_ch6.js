@@ -151,7 +151,7 @@ QBANK.add([
   expl:'DDB rate = 2/5 = 40%. Year 1 dep = 40% × 80,000 = 32,000. NBV start of Y2 = 80,000 − 32,000 = 48,000. Year 2 dep = 40% × 48,000 = $19,200.'
 },
 { id:'ch6-019', chap:'ch6', type:'numeric', diff:'med', src:'authored', dp:0,
-  stem:'Same truck (cost $80,000, life 5 years, residual $5,000), straight-line. Year 2 depreciation (in $)?',
+  stem:'A truck costs $80,000, has a 5-year useful life and $5,000 residual value. Using straight-line depreciation, what is Year 2 depreciation expense (in $)?',
   ans:15000,
   expl:'SL = (80,000 − 5,000)/5 = $15,000 per year.'
 },
