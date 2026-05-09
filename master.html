@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Master Quiz — FRA Exam Hub</title>
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+</head>
+<body>
+<header class="top">
+  <div class="row">
+    <a class="brand" href="index.html"><span class="logo"></span><span class="brand-label">Financial Reporting<br>&amp; Analysis</span></a>
+    <div class="tools">
+      <a href="index.html" class="pill-btn">← Home</a>
+      <button id="themeBtn" class="pill-btn" onclick="toggleTheme()">☾ Dark</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="shell">
+  <div id="picker">
+    <div class="section-title">
+      <h2><em>Master Quiz</em></h2>
+      <p>The full question bank with filters. Drill weak spots only, run sudden-death, or focus on a difficulty band.</p>
+    </div>
+
+    <div class="filter-section">
+      <h4>Chapters</h4>
+      <div id="chapChips" class="filter-chips"></div>
+    </div>
+    <div class="filter-section">
+      <h4>Difficulty</h4>
+      <div id="diffChips" class="filter-chips">
+        <span class="chip active" data-d="all">All</span>
+        <span class="chip" data-d="easy">Easy</span>
+        <span class="chip" data-d="med">Medium</span>
+        <span class="chip" data-d="hard">Hard</span>
+        <span class="chip" data-d="exam">Exam-level</span>
+      </div>
+    </div>
+    <div class="filter-section">
+      <h4>Mode</h4>
+      <div id="modeChips" class="filter-chips">
+        <span class="chip active" data-m="practice">Practice (instant feedback)</span>
+        <span class="chip" data-m="weak">Weak spots only</span>
+        <span class="chip" data-m="sudden">Sudden death (one wrong = restart)</span>
+      </div>
+    </div>
+
+    <div class="row-flex" style="justify-content:space-between;margin-top:1rem">
+      <div class="muted sans" id="countLbl">0 questions match</div>
+      <button class="btn" id="startBtn">Start →</button>
+    </div>
+  </div>
+
+  <div id="runner" class="quiz-shell" style="display:none"></div>
+</div>
+</main>
+
+<footer class="bot">Financial Reporting &amp; Analysis · Final Exam Prep</footer>
+
+<script src="js/app.js"></script>
+<script src="js/data/manifest.js"></script>
+<script src="js/data/questions.js"></script>
+<script src="js/data/q_ch1_2.js" onerror=""></script>
+<script src="js/data/q_ch3.js" onerror=""></script>
+<script src="js/data/q_ch4.js" onerror=""></script>
+<script src="js/data/q_ch5.js" onerror=""></script>
+<script src="js/data/q_ch6.js" onerror=""></script>
+<script src="js/data/q_ch7.js" onerror=""></script>
+<script src="js/data/q_ch8.js" onerror=""></script>
+<script src="js/data/q_ch9.js" onerror=""></script>
+<script src="js/data/q_ch10.js" onerror=""></script>
+<script src="js/data/q_ch11.js" onerror=""></script>
+<script src="js/data/q_ch12.js" onerror=""></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script src="js/quiz.js"></script>
+<script>
+const state = {
+  chaps: new Set(MANIFEST.chapters.map(c=>c.id)),  // all chapters by default
+  diff: 'all',
+  mode: 'practice'
+};
+
+function renderChapChips(){
+  const host = document.getElementById('chapChips');
+  let html = `<span class="chip active" data-c="all">All chapters</span>`;
+  MANIFEST.chapters.forEach(c=>{
+    html += `<span class="chip active" data-c="${c.id}">Ch ${c.num}</span>`;
+  });
+  host.innerHTML = html;
+  host.querySelectorAll('.chip').forEach(chip=>{
+    chip.onclick = ()=>{
+      const id = chip.dataset.c;
+      if (id === 'all'){
+        const allOn = host.querySelectorAll('.chip[data-c]:not([data-c="all"]).active').length === MANIFEST.chapters.length;
+        host.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', !allOn));
+        state.chaps = allOn ? new Set() : new Set(MANIFEST.chapters.map(c=>c.id));
+      } else {
+        chip.classList.toggle('active');
+        if (chip.classList.contains('active')) state.chaps.add(id);
+        else state.chaps.delete(id);
+        const allChip = host.querySelector('[data-c="all"]');
+        const allOn = state.chaps.size === MANIFEST.chapters.length;
+        allChip.classList.toggle('active', allOn);
+      }
+      updateCount();
+    };
+  });
+}
+
+function bindGroup(host, key){
+  host.querySelectorAll('.chip').forEach(chip=>{
+    chip.onclick = ()=>{
+      host.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      state[key] = chip.dataset[key.charAt(0)];
+      updateCount();
+    };
+  });
+}
+
+function selectedQuestions(){
+  let qs = QUESTIONS.filter(q => state.chaps.has(q.chap));
+  if (state.diff !== 'all') qs = qs.filter(q => q.diff === state.diff);
+  if (state.mode === 'weak') qs = QBANK.weak().filter(q => state.chaps.has(q.chap));
+  return qs;
+}
+function updateCount(){
+  document.getElementById('countLbl').textContent = `${selectedQuestions().length} questions match`;
+}
+
+renderChapChips();
+bindGroup(document.getElementById('diffChips'), 'diff');
+bindGroup(document.getElementById('modeChips'), 'mode');
+updateCount();
+
+document.getElementById('startBtn').onclick = ()=>{
+  const qs = selectedQuestions();
+  if (!qs.length){
+    alert('No questions match those filters. Try broader chapters / difficulty.');
+    return;
+  }
+  document.getElementById('picker').style.display = 'none';
+  const r = document.getElementById('runner');
+  r.style.display = 'block';
+  r.innerHTML = `<h2 style="margin-bottom:1rem"><em>Master Quiz · ${qs.length} questions</em></h2>
+    <div id="quizContainer"></div>`;
+  QuizEngine.render({
+    container: document.getElementById('quizContainer'),
+    questions: qs,
+    mode: state.mode === 'sudden' ? 'sudden' : 'practice'
+  });
+};
+</script>
+</body>
+</html>

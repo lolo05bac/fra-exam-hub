@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Financial Reporting & Analysis — Exam Hub</title>
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+</head>
+<body>
+<header class="top">
+  <div class="row">
+    <a class="brand" href="index.html">
+      <span class="logo"></span>
+      <span class="brand-label">Financial Reporting<br>&amp; Analysis</span>
+    </a>
+    <div class="tools">
+      <button id="themeBtn" class="pill-btn" onclick="toggleTheme()">☾ Dark</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="shell">
+
+  <section class="hero">
+    <div class="eyebrow">Final Exam · 90 Minutes · No formula sheet</div>
+    <h1>An interactive guide to <span class="accent"><em>Financial Reporting</em></span></h1>
+    <p class="lede">Twelve chapters distilled from your slides, lecture notes, MCQ banks, cash-flow cases, midterms and finals. Read, drill, and rehearse until every formula is automatic.</p>
+    <div class="divider-line"></div>
+  </section>
+
+  <section class="mode-grid">
+    <a href="chapters.html" class="mode-card">
+      <div class="num"><em>01</em></div>
+      <div class="kicker">Mode One</div>
+      <h3>Review</h3>
+      <p>Read each chapter — definitions, formulas, derivations, three or more worked examples, memory hooks, and the exact pitfalls the exam exploits.</p>
+    </a>
+    <a href="practice.html" class="mode-card green">
+      <div class="num"><em>02</em></div>
+      <div class="kicker">Mode Two</div>
+      <h3>Practice</h3>
+      <p>Drill 30+ questions per chapter. MCQs with instant feedback, calculated questions with full step-by-step solutions, mark-as-weak for review.</p>
+    </a>
+    <a href="mocks.html" class="mode-card warn">
+      <div class="num"><em>03</em></div>
+      <div class="kicker">Mode Three</div>
+      <h3>Mocks</h3>
+      <p>Four full-length 90-minute mocks. 15 MCQ + 15 calculated, on-screen timer, graded report at the end.</p>
+    </a>
+    <a href="master.html" class="mode-card">
+      <div class="num"><em>04</em></div>
+      <div class="kicker">Mode Four</div>
+      <h3>Master Quiz</h3>
+      <p>The 300-question monster. Filter by chapter or difficulty, drill weak-spots only, or run sudden-death for late-stage revision.</p>
+    </a>
+    <a href="vault.html" class="mode-card green">
+      <div class="num"><em>05</em></div>
+      <div class="kicker">Mode Five</div>
+      <h3>Formula Vault</h3>
+      <p>Every formula and identity in one searchable page. Use this to memorise — there's no booklet on exam day.</p>
+    </a>
+    <a href="javascript:resetProgress()" class="mode-card warn" style="border-style:dashed">
+      <div class="num"><em>↻</em></div>
+      <div class="kicker">Reset</div>
+      <h3>Start over</h3>
+      <p>Wipe all attempts, weak-flags and progress. Use this in your final week if you want a clean baseline.</p>
+    </a>
+  </section>
+
+  <hr>
+
+  <section class="prose" style="margin-top:3rem">
+    <h2 style="font-style:italic;text-align:center">Your progress</h2>
+    <div id="progressGrid" class="mode-grid" style="margin-top:1.5rem"></div>
+  </section>
+
+  <section class="prose" style="margin-top:4rem">
+    <h2 style="font-style:italic;text-align:center">How to use this site</h2>
+    <ol style="font-size:1.05rem;line-height:1.8">
+      <li><strong>Start with the Chapters.</strong> Read each one twice. Pay particular attention to Memory Hooks — that's how you'll recall formulas under pressure.</li>
+      <li><strong>Drill Practice per chapter</strong> until you score ≥80% comfortably. Mark anything you got wrong as "weak".</li>
+      <li><strong>Do Mock Exam 1 cold</strong> — even before you feel ready. Find out what 90 minutes feels like.</li>
+      <li><strong>Use Master Quiz</strong> in "weak spots only" mode every day in the final week.</li>
+      <li><strong>Take Mocks 2-4 in the final five days,</strong> timed, no notes. Treat each one like the real exam.</li>
+    </ol>
+  </section>
+
+</div>
+</main>
+
+<footer class="bot">
+  Financial Reporting &amp; Analysis · Final Exam Prep · Built from your course materials
+</footer>
+
+<script src="js/app.js"></script>
+<script src="js/data/manifest.js"></script>
+<script src="js/data/questions.js" onerror="window.QUESTIONS=[]"></script>
+<script>
+function resetProgress(){
+  if (confirm('This wipes all your attempts and weak-flags. Continue?')) {
+    FRA.progress.reset();
+    location.reload();
+  }
+}
+function renderProgress(){
+  const grid = document.getElementById('progressGrid');
+  const p = FRA.progress.load();
+  const totalQs = (window.QUESTIONS && QUESTIONS.length) || 0;
+  const attempted = p.attempts ? Object.keys(p.attempts).length : 0;
+  const correct = p.attempts ? Object.values(p.attempts).filter(a=>a.correct>0).length : 0;
+  const weak = p.weak ? Object.keys(p.weak).length : 0;
+  const acc = attempted ? Math.round(100 * correct / attempted) : 0;
+  grid.innerHTML = `
+    <div class="mode-card" style="cursor:default"><div class="num"><em>${attempted}</em></div><div class="kicker">Questions</div><h3 style="font-size:1.4rem">Attempted</h3><p>out of ${totalQs} total in the bank.</p></div>
+    <div class="mode-card green" style="cursor:default"><div class="num"><em>${acc}<span style="font-size:2rem">%</span></em></div><div class="kicker">Accuracy</div><h3 style="font-size:1.4rem">Got right</h3><p>${correct} questions correct on first or subsequent attempts.</p></div>
+    <div class="mode-card warn" style="cursor:default"><div class="num"><em>${weak}</em></div><div class="kicker">Weak spots</div><h3 style="font-size:1.4rem">Marked</h3><p>Questions flagged for further review.</p></div>
+  `;
+}
+document.addEventListener('DOMContentLoaded', renderProgress);
+</script>
+</body>
+</html>

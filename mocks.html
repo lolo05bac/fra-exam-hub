@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mock Exams — FRA Exam Hub</title>
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+</head>
+<body>
+<header class="top">
+  <div class="row">
+    <a class="brand" href="index.html"><span class="logo"></span><span class="brand-label">Financial Reporting<br>&amp; Analysis</span></a>
+    <div class="tools">
+      <a href="index.html" class="pill-btn">← Home</a>
+      <button id="themeBtn" class="pill-btn" onclick="toggleTheme()">☾ Dark</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="shell">
+  <div id="picker">
+    <div class="section-title">
+      <h2><em>Mock Exams</em></h2>
+      <p>Four full-length 90-minute mocks matching the real format: 15 MCQ + 15 calculated. On-screen countdown, graded report at the end.</p>
+    </div>
+    <div id="mockList" class="ch-list"></div>
+  </div>
+  <div id="runner" class="quiz-shell" style="display:none"></div>
+</div>
+</main>
+
+<footer class="bot">Financial Reporting &amp; Analysis · Final Exam Prep</footer>
+
+<script src="js/app.js"></script>
+<script src="js/data/manifest.js"></script>
+<script src="js/data/questions.js"></script>
+<script src="js/data/q_ch1_2.js" onerror=""></script>
+<script src="js/data/q_ch3.js" onerror=""></script>
+<script src="js/data/q_ch4.js" onerror=""></script>
+<script src="js/data/q_ch5.js" onerror=""></script>
+<script src="js/data/q_ch6.js" onerror=""></script>
+<script src="js/data/q_ch7.js" onerror=""></script>
+<script src="js/data/q_ch8.js" onerror=""></script>
+<script src="js/data/q_ch9.js" onerror=""></script>
+<script src="js/data/q_ch10.js" onerror=""></script>
+<script src="js/data/q_ch11.js" onerror=""></script>
+<script src="js/data/q_ch12.js" onerror=""></script>
+<script src="js/data/mocks.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script src="js/mock.js"></script>
+<script>
+function pad(n){ return String(n).padStart(2,'0'); }
+
+const params = new URLSearchParams(location.search);
+const sel = params.get('id');
+
+if (!sel){
+  document.getElementById('mockList').innerHTML = MOCKS.map((m, i)=>{
+    const found = m.questions.filter(qid => QUESTIONS.find(q=>q.id===qid)).length;
+    return `<a class="ch-row" href="mocks.html?id=${m.id}">
+      <div class="num"><em>${pad(i+1)}</em></div>
+      <div class="body">
+        <h3>${m.title}</h3>
+        <p>${m.blurb} · <strong>${found}/${m.questions.length}</strong> questions ready · 90 min</p>
+      </div>
+      <div class="arrow">→</div>
+    </a>`;
+  }).join('');
+} else {
+  document.getElementById('picker').style.display = 'none';
+  const runner = document.getElementById('runner');
+  runner.style.display = 'block';
+  const mock = MOCKS.find(m => m.id === sel);
+  if (!mock){
+    runner.innerHTML = `<p>Mock not found. <a href="mocks.html">← back</a></p>`;
+  } else {
+    const qs = mock.questions.map(qid => QUESTIONS.find(q=>q.id===qid)).filter(Boolean);
+    runner.innerHTML = `
+      <h2 style="margin-bottom:.4rem"><em>${mock.title}</em></h2>
+      <p class="muted" style="font-family:var(--sans);font-size:.92rem">90 minutes · ${qs.length} questions · ${qs.filter(q=>q.type==='mcq').length} MCQ + ${qs.filter(q=>q.type!=='mcq').length} calculated · No formula sheet allowed</p>
+      <div class="card" style="background:var(--paper);border:1px solid var(--line-soft);border-radius:12px;padding:1.5rem;margin:1.5rem 0">
+        <p>${mock.blurb}</p>
+        <p class="muted" style="font-size:.95rem">Once you click Start, the timer begins. You can navigate freely between questions, review at the end, and submit when ready (or when time runs out).</p>
+        <div class="row-flex" style="margin-top:1rem">
+          <button class="btn" id="startBtn">Start exam ▶</button>
+          <a class="btn ghost" href="mocks.html">← Back</a>
+        </div>
+      </div>
+      <div id="mockHost"></div>`;
+    document.getElementById('startBtn').onclick = ()=>{
+      document.querySelector('.card').style.display = 'none';
+      MockEngine.start({
+        container: document.getElementById('mockHost'),
+        questions: qs,
+        durationSec: mock.durationSec,
+        title: mock.title
+      });
+    };
+  }
+}
+</script>
+</body>
+</html>

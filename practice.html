@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Practice — FRA Exam Hub</title>
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+</head>
+<body>
+<header class="top">
+  <div class="row">
+    <a class="brand" href="index.html">
+      <span class="logo"></span>
+      <span class="brand-label">Financial Reporting<br>&amp; Analysis</span>
+    </a>
+    <div class="tools">
+      <a href="index.html" class="pill-btn">← Home</a>
+      <button id="themeBtn" class="pill-btn" onclick="toggleTheme()">☾ Dark</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="shell">
+  <div id="picker">
+    <div class="section-title">
+      <h2><em>Pick your scope</em></h2>
+      <p>Mix-and-match questions from any chapter, or focus on a single topic.</p>
+    </div>
+    <div id="scopeList" class="ch-list"></div>
+  </div>
+  <div id="runner" class="quiz-shell" style="display:none"></div>
+</div>
+</main>
+
+<footer class="bot">Financial Reporting &amp; Analysis · Final Exam Prep</footer>
+
+<script src="js/app.js"></script>
+<script src="js/data/manifest.js"></script>
+<script src="js/data/questions.js"></script>
+<script src="js/data/q_ch1_2.js"     onerror="console.warn('q_ch1_2 missing')"></script>
+<script src="js/data/q_ch3.js"       onerror="console.warn('q_ch3 missing')"></script>
+<script src="js/data/q_ch4.js"       onerror="console.warn('q_ch4 missing')"></script>
+<script src="js/data/q_ch5.js"       onerror="console.warn('q_ch5 missing')"></script>
+<script src="js/data/q_ch6.js"       onerror="console.warn('q_ch6 missing')"></script>
+<script src="js/data/q_ch7.js"       onerror="console.warn('q_ch7 missing')"></script>
+<script src="js/data/q_ch8.js"       onerror="console.warn('q_ch8 missing')"></script>
+<script src="js/data/q_ch9.js"       onerror="console.warn('q_ch9 missing')"></script>
+<script src="js/data/q_ch10.js"      onerror="console.warn('q_ch10 missing')"></script>
+<script src="js/data/q_ch11.js"      onerror="console.warn('q_ch11 missing')"></script>
+<script src="js/data/q_ch12.js"      onerror="console.warn('q_ch12 missing')"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script src="js/quiz.js"></script>
+<script>
+function pad(n){ return String(n).padStart(2,'0'); }
+function pickerHtml(){
+  const all = window.QUESTIONS || [];
+  const allCount = all.length;
+  let html = `<a class="ch-row" href="practice.html?id=ALL" style="border-color:var(--green);background:var(--green-soft)">
+    <div class="num"><em>00</em></div>
+    <div class="body">
+      <h3>All chapters</h3>
+      <p>${allCount} questions · randomised</p>
+    </div>
+    <div class="arrow">→</div>
+  </a>`;
+  MANIFEST.chapters.forEach((c, i)=>{
+    const n = all.filter(q => q.chap === c.id).length;
+    html += `<a class="ch-row" href="practice.html?id=${c.id}">
+      <div class="num"><em>${pad(i+1)}</em></div>
+      <div class="body">
+        <h3>${c.title}</h3>
+        <p>${n} question${n===1?'':'s'}</p>
+      </div>
+      <div class="arrow">→</div>
+    </a>`;
+  });
+  return html;
+}
+
+const params = new URLSearchParams(location.search);
+const sel = params.get('id');
+
+if (!sel){
+  document.getElementById('scopeList').innerHTML = pickerHtml();
+} else {
+  document.getElementById('picker').style.display = 'none';
+  const runner = document.getElementById('runner');
+  runner.style.display = 'block';
+  const all = window.QUESTIONS || [];
+  let qs = sel === 'ALL' ? all : all.filter(q => q.chap === sel);
+  let title = 'All chapters';
+  if (sel !== 'ALL'){
+    const meta = MANIFEST.chapters.find(c => c.id === sel);
+    title = meta ? `Ch ${meta.num} · ${meta.title}` : sel;
+  }
+  runner.innerHTML = `<h2 style="margin-bottom:1rem"><em>${title}</em></h2>
+    <div id="quizContainer"></div>`;
+  if (qs.length === 0){
+    document.getElementById('quizContainer').innerHTML =
+      `<div class="empty"><p>No questions yet for this chapter — they'll be added soon.</p>
+       <p><a class="btn ghost" href="practice.html">← Back to all chapters</a></p></div>`;
+  } else {
+    QuizEngine.render({
+      container: document.getElementById('quizContainer'),
+      questions: qs,
+      mode: 'practice'
+    });
+  }
+}
+</script>
+</body>
+</html>
